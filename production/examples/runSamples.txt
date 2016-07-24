@@ -1,0 +1,21 @@
+This file contains example command line options to test your filterfasta program after installation.
+
+
+Example 1: (normal mode)
+Extract up to 30 sequences, including their first 5 annotation fields, of exactly 200 or between 300 and 400 amino acids in length:
+
+     -> filterfasta -q queryFile.txt -v -o test1.out -c 30 -a 5 -l 200 -l 300:400
+
+
+Example 2: (pipeline mode)
+Extract all sequences, including all annotation fields, of any length that match hit IDs in BLAST table file to be pipelined with HMMER program:
+
+     -> filterfasta -q queryFile.txt -v -o test2.out -t blastTable.txt -p 1
+ 
+
+Validation:
+You may use the "diff" command to compare your output files with the sample output files.
+
+     -> diff test1.out sample1.out
+     -> diff test2.out sample2.out
+
