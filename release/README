@@ -1,0 +1,80 @@
+				FILTERFASTA
+
+====== DESCRIPTION =======
+
+filterfasta is a program for parsing files in FASTA format which contain amino acid sequences of proteins/nucleotides. filterfasta expects a valid FASTA file, no validation on the format is performed.
+
+1. Normal mode: The first functionality of filterfasta is to extract sequences from a FASTA input query file and write them in FASTA format to an output file. The filterfasta program uses command line options to allow the user to control which sequences to extract for output by specifying the maximum amount of sequences to extract, the exact length (or ranged lengths) of amino acids, the sequence annotation fields to maintain, and the maximum size in bytes allowed for the output file.
+ 
+2. Pipeline mode: The second functionality of filterfasta is serve as pipeline program between BLAST and HMMER/MUSCLE.
+ 	HMMER  --> filterfasta extracts sequences from a FASTA input file that appear as hits in a BLAST table file and writes them in FASTA format to an output file. The output file serve as input for HMMER program.
+ 	MUSCLE --> (under development) filterfasta extracts sequences from a FASTA input file that appear as hits in a BLAST table file and writes them in FASTA format to multiple output files grouped by the hits' queries. The output files serve as input for MUSCLE program.
+
+
+========= NOTES ==========
+
+ 1. MUSCLE pipeline is still under development
+ 2. The sequence length configuration is ignored when using filterfasta in pipeline mode
+ 3. Performance:
+        Normal mode   --> 2GB query file (~4,800,000 sequences) in ~30 seconds
+        Pipeline mode --> 2GB query file (~4,800,000 sequences) and ~9,500 BLAST table IDs in ~7 minutes
+
+
+===== FILES INCLUDED =====
+
+filterfasta-2.0/
+  - README
+  - makefile
+
+  bin/ (after installation)
+    - filterfasta
+
+  doc/
+    - filterfasta.1
+
+  examples/
+    - queryFile.txt 
+    - blastTable.txt
+    - sample1.out
+    - sample2.out
+    - runSamples.txt
+
+  src/
+    - filterfasta.c
+
+
+===== INSTALLATION ======
+
+The filterfasta program requires the following tools for complete installation:
+  1. tar and gzip utilities
+  2. C compiler (default gcc)
+  3. make utility
+
+To install the complete filterfasta distribution follow these steps:
+  1. Uncompress the tar.gz file in your working directory
+
+       -> tar -xvzf filterfasta-2.0.tar.gz
+
+  2. Move to the top level directory
+
+       -> cd filterfasta-2.0/
+
+  3. Run the make command. Note that the default C compiler in the makefile is gcc, if using another C compiler make sure to edit the makefile accordingly.
+
+       -> make
+
+     The filterfasta binary will be located in "bin/" directory.
+ 
+ 4. Test filterfasta by running the examples provided in the "examples/" directory. The file "runSamples.txt" contains command line options for running the examples. You may use the diff command to compare your output files with the sample output files.
+
+       -> diff test1.out sample1.out
+       -> diff test2.out sample2.out
+
+ 5. For more information read the manpage located in "doc/" directory.
+
+       -> less filterfasta.1
+
+
+===== CONTACT =====
+
+  For bugs, typos, and help with this distribution: filterfasta, makefile, examples, and documentation, please contact Eduardo Ponce (eponcemo@utk.edu)
